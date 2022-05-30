@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>SharedList</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@700;800;900&display=swap');
+
+        h1 {
+            background-color:#1F1466;
+            color: whitesmoke;
+            padding: 30px 0;
+        }
+        body {
+            background: #FDFDFF;
+        }
+        .container{
+
+            padding:25px;
+        }
+        .card{
+            margin-top: 25px;
+        }
+        .add{
+            background-color: #4F4CBF;
+            border: #4F4CBF;
+        }
+        .addTask{
+            background-color: #1F1466;
+            color: whitesmoke;
+            font-weight: bold;
+            padding: 10px 20px;
+        }
+        .card-body{
+        }
+        .form-control{
+
+        }
+    </style>
+</head>
+
+<body>
+<div style="text-align: center;"><h1 class="name">SharedList</h1></div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">Tasks</div>
+        <div class="card-body">
+            <table class="table table-borderless">
+                <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{range .Todos}}
+                {{if .Completed}}
+                <tr>
+                    <td><strike>{{.Item}}</strike></td>
+                    <td>Completed</td>
+                    <td>
+                        <button class="btn btn-success" disabled>Complete</button>
+                        <button class="btn btn-danger" disabled>Delete</button>
+                        <button class="btn btn-primary" disabled>Edit</button>
+                    </td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td>{{.Item}}</td>
+                    <td>Not Completed</td>
+                    <td>
+                        <a href="/complete/{{ .Id}}">
+                            <button class="btn btn-success">Complete</button>
+                        </a>
+                        <a href="/delete/{{ .Id}}">
+                            <button class="btn btn-danger">Delete</button>
+                        </a>
+                        <a href="/updateTask/{{ .Id}}">
+                            <button class="btn btn-primary">Edit</button>
+                        </a>
+                    </td>
+                </tr>
+                {{end}}
+                {{end}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <form action="/add" method="post">
+                <div class="form-group">
+                    <label for="item">Add a new task</label>
+                    <input type="text" class="form-control" name="item" placeholder="What do you want to do?">
+                </div>
+                <button type="submit" class="btn btn-primary add">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
